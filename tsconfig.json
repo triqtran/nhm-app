@@ -1,3 +1,22 @@
 {
-  "extends": "@tsconfig/react-native/tsconfig.json"
+  "extends": "@tsconfig/react-native/tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": "./src/",
+    "paths": {
+      "api": ["api"],
+      "assets": ["assets"],
+      "common": ["common"],
+      "core": ["core"],
+      "navigations": ["navigations"],
+      "providers": ["providers"],
+      "reduxes": ["reduxes"],
+      "screens": ["screens"],
+    }
+  },
+  "exclude": [
+    "node_modules",
+    "babel.config.js",
+    "metro.config.js",
+    "jest.config.js"
+  ]
 }
