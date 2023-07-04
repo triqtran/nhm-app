@@ -11,7 +11,12 @@
       "providers": ["providers"],
       "reduxes": ["reduxes"],
       "screens": ["screens"],
-    }
+    },
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "noEmit": true,
+    "target": "ES3",
+    "experimentalDecorators": true,
   },
   "exclude": [
     "node_modules",

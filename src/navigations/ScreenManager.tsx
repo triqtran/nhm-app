@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Image, StyleSheet, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -9,101 +9,116 @@ import AppManager from '../AppManager';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { i18n } from 'common';
 import assets from 'assets';
-import { theme } from 'core';
+import theme from 'core/theme';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
-const Tab = createBottomTabNavigator<RootStackParamList>();
-
-const routeName = {
-  HOME: {
-    name: ScreenID.HOME as never,
-    component: AppManager.presentations[ScreenID.HOME],
-  },
-  RESOURCE: {
-    name: ScreenID.RESOURCE as never,
-    component: AppManager.presentations[ScreenID.RESOURCE],
-  },
-  PROFILE: {
-    name: ScreenID.PROFILE as never,
-    component: AppManager.presentations[ScreenID.PROFILE],
-  },
-  SCHEDULE: {
-    name: ScreenID.SCHEDULE as never,
-    component: AppManager.presentations[ScreenID.SCHEDULE],
-  },
-  COURSE: {
-    name: ScreenID.COURSE as never,
-    component: AppManager.presentations[ScreenID.COURSE],
-  },
-}
-
-function BottomTabStack () {
-  return (
-    <Tab.Navigator
-      initialRouteName={routeName.HOME.name}
-      screenOptions={({ route }) => ({
-        headerShown: false,
-        tabBarLabel: ({ focused }) => {
-          const label = (() => {
-            switch (route.name) {
-              case ScreenID.HOME: return i18n.HOME;
-              case ScreenID.RESOURCE: return i18n.RESOURCE;
-              case ScreenID.PROFILE: return i18n.PROFILE;
-              default: return null;
-            }
-          })();
-          if (!label) return null;
-          return (
-            <Text
-              style={[
-                styles.tabbarLabel,
-                focused ? styles.bold : null
-              ]}
-            >{label}</Text>
-          )
-        },
-        tabBarIcon: () => {
-          const barIcon = (() => {
-            switch (route.name) {
-              case ScreenID.HOME: return assets.images.imgHome;
-              case ScreenID.RESOURCE: return assets.images.imgResource;
-              case ScreenID.PROFILE: return assets.images.imgProfile;
-              default: return null;
-            }
-          })();
-          if (!barIcon) return null;
-          return (
-            <Image
-              source={barIcon}
-              style={styles.tabbarIcon}
-              resizeMode="contain"
-            />
-          );
-        },
-        tabBarStyle: styles.tabbarView,
-        tabBarItemStyle: styles.tabbarItem,
-      })}
-    >
-      <Tab.Screen {...routeName.HOME} />
-      <Tab.Screen {...routeName.RESOURCE} />
-      <Tab.Screen {...routeName.PROFILE} />
-    </Tab.Navigator>
-  )
-} 
+const Tab = createBottomTabNavigator<RootStackParamList>(); 
 
 export default function ScreenManager () {
+  const routeName = useMemo(() => ({
+    COURSE: {
+      name: ScreenID.COURSE as never,
+      component: AppManager.presentations[ScreenID.COURSE],
+    },
+    HOME: {
+      name: ScreenID.HOME as never,
+      component: AppManager.presentations[ScreenID.HOME],
+    },
+    LOGIN: {
+      name: ScreenID.LOGIN as never,
+      component: AppManager.presentations[ScreenID.LOGIN],
+    },
+    PROFILE: {
+      name: ScreenID.PROFILE as never,
+      component: AppManager.presentations[ScreenID.PROFILE],
+    },
+    RESOURCE: {
+      name: ScreenID.RESOURCE as never,
+      component: AppManager.presentations[ScreenID.RESOURCE],
+    },
+    SCHEDULE: {
+      name: ScreenID.SCHEDULE as never,
+      component: AppManager.presentations[ScreenID.SCHEDULE],
+    },
+    SIGNUP: {
+      name: ScreenID.SIGNUP as never,
+      component: AppManager.presentations[ScreenID.SIGNUP],
+    },
+    SPLASH: {
+      name: ScreenID.SPLASH as never,
+      component: AppManager.presentations[ScreenID.SPLASH],
+    },
+    WELCOME: {
+      name: ScreenID.WELCOME as never,
+      component: AppManager.presentations[ScreenID.WELCOME],
+    },
+  }), []);
+
+  function BottomTabStack () {
+    return (
+      <Tab.Navigator
+        initialRouteName={routeName.HOME.name}
+        screenOptions={({ route }) => ({
+          headerShown: false,
+          tabBarLabel: ({ focused }) => {
+            const label = (() => {
+              switch (route.name) {
+                case ScreenID.HOME: return i18n.HOME;
+                case ScreenID.RESOURCE: return i18n.RESOURCE;
+                case ScreenID.PROFILE: return i18n.PROFILE;
+                default: return null;
+              }
+            })();
+            if (!label) return null;
+            return (
+              <Text
+                style={[
+                  styles.tabbarLabel,
+                  focused ? styles.bold : null
+                ]}
+              >{label}</Text>
+            )
+          },
+          tabBarIcon: () => {
+            const barIcon = (() => {
+              switch (route.name) {
+                case ScreenID.HOME: return assets.images.imgHome;
+                case ScreenID.RESOURCE: return assets.images.imgResource;
+                case ScreenID.PROFILE: return assets.images.imgProfile;
+                default: return null;
+              }
+            })();
+            if (!barIcon) return null;
+            return (
+              <Image
+                source={barIcon}
+                style={styles.tabbarIcon}
+                resizeMode="contain"
+              />
+            );
+          },
+          tabBarStyle: styles.tabbarView,
+          tabBarItemStyle: styles.tabbarItem,
+        })}
+      >
+        <Tab.Screen {...routeName.HOME} />
+        <Tab.Screen {...routeName.RESOURCE} />
+        <Tab.Screen {...routeName.PROFILE} />
+      </Tab.Navigator>
+    )
+  }
+
   return (
-    <NavigationContainer
-      ref={(ref) => (NavigationService.navigator = ref)}
-      onStateChange={(state) => {
-        console.log('State:', state);
-      }}
-    >
+    <NavigationContainer ref={(ref) => (NavigationService.navigator = ref)}>
       <Stack.Navigator
         screenOptions={{ headerShown: false }}
-        initialRouteName={'main' as never}
+        initialRouteName={ScreenID.SPLASH as never}
       >
-        <Stack.Screen name={'main' as never} component={BottomTabStack} />
+        <Stack.Screen {...routeName.SPLASH} />
+        <Stack.Screen {...routeName.WELCOME} />
+        <Stack.Screen {...routeName.SIGNUP} />
+        <Stack.Screen {...routeName.LOGIN} />
+        <Stack.Screen name={ScreenID.MAIN as never} component={BottomTabStack} />
         <Stack.Screen {...routeName.SCHEDULE} />
         <Stack.Screen {...routeName.COURSE} />
       </Stack.Navigator>

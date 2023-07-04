@@ -4,9 +4,13 @@ import ScreenID from 'navigations/ScreenID';
 import {
   CourseMainScreen,
   HomeMainScreen,
+  LoginMainScreen,
   ProfileMainScreen,
   ResourceMainScreen,
   ScheduleMainScreen,
+  SignUpMainScreen,
+  SplashMainScreen,
+  WelcomeMainScreen,
 } from 'screens';
 import studentModule from 'reduxes/student/StudentModule';
 
@@ -37,10 +41,14 @@ class AppManager {
     // presentation screens
     this.presentations[ScreenID.COURSE] = CourseMainScreen();
     this.presentations[ScreenID.HOME] = HomeMainScreen(studentMol);
+    this.presentations[ScreenID.LOGIN] = LoginMainScreen();
     this.presentations[ScreenID.PROFILE] = ProfileMainScreen();
     this.presentations[ScreenID.RESOURCE] = ResourceMainScreen();
     this.presentations[ScreenID.SCHEDULE] = ScheduleMainScreen();
-  }
+    this.presentations[ScreenID.SIGNUP] = SignUpMainScreen();
+    this.presentations[ScreenID.SPLASH] = SplashMainScreen(studentMol);
+    this.presentations[ScreenID.WELCOME] = WelcomeMainScreen();
+}
 }
 
 export default new AppManager();

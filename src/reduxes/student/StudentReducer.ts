@@ -1,4 +1,5 @@
 import { StudentType } from 'api/student/request'
+import { i18n } from 'common';
 import Action from 'reduxes/Action';
 import { State } from 'reduxes/states';
 import * as StudentActions from './StudentAction';
@@ -19,7 +20,7 @@ const studentReducer = Action.createReducer(
   }),
 
   StudentActions.signUpFailed.on((state: StudentState) => {
-    return Object.assign({}, state, { data: null, error: "Error" });
+    return Object.assign({}, state, { data: null, error: i18n.NETWORK_ERROR });
   }),
 
   StudentActions.logInSuccess.on((state: StudentState, payload: StudentType) => {
@@ -27,7 +28,7 @@ const studentReducer = Action.createReducer(
   }),
 
   StudentActions.logInFailed.on((state: StudentState) => {
-    return Object.assign({}, state, { data: null, error: "Error" });
+    return Object.assign({}, state, { data: null, error: i18n.NETWORK_ERROR });
   }),
 
   StudentActions.getProfile.on((state: StudentState) => {
@@ -39,7 +40,7 @@ const studentReducer = Action.createReducer(
   }),
 
   StudentActions.getProfileFailed.on((state: StudentState) => {
-    return Object.assign({}, state, { loading: false, data: null, error: "Error" });
+    return Object.assign({}, state, { loading: false, data: null, error: i18n.NETWORK_ERROR });
   }),
 );
 

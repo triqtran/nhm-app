@@ -5,8 +5,11 @@ export default {
   HOME: 'home_screen',
   LESSON: 'lesson_screen',
   LOGIN: 'login_screen',
+  MAIN: 'main_screen',
   PROFILE: 'profile_screen',
-  REGISTRATION: 'registration_screen',
+  SIGNUP: 'signup_screen',
   RESOURCE: 'resource_screen',
   SCHEDULE: 'schedule_screen',
+  WELCOME: 'welcome_screen',
+  SPLASH: 'splash_screen',
 }
