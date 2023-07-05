@@ -41,11 +41,11 @@ class AppManager {
     // presentation screens
     this.presentations[ScreenID.COURSE] = CourseMainScreen();
     this.presentations[ScreenID.HOME] = HomeMainScreen(studentMol);
-    this.presentations[ScreenID.LOGIN] = LoginMainScreen();
+    this.presentations[ScreenID.LOGIN] = LoginMainScreen(studentMol);
     this.presentations[ScreenID.PROFILE] = ProfileMainScreen();
     this.presentations[ScreenID.RESOURCE] = ResourceMainScreen();
     this.presentations[ScreenID.SCHEDULE] = ScheduleMainScreen();
-    this.presentations[ScreenID.SIGNUP] = SignUpMainScreen();
+    this.presentations[ScreenID.SIGNUP] = SignUpMainScreen(studentMol);
     this.presentations[ScreenID.SPLASH] = SplashMainScreen(studentMol);
     this.presentations[ScreenID.WELCOME] = WelcomeMainScreen();
 }

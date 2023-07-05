@@ -395,6 +395,14 @@ function buttonStyles (
   }
 }
 
+export type RequiredType = 'max-length' | 'required' | 'validation' | 'empty';
+export type InputRequiredType = {
+  type: RequiredType;
+  validation?: (data?: string) => boolean;
+  message?: string;
+}
+export type InputFormattedType = 'text' | 'number' | 'phone' | 'date' | 'currency' | 'password';
+
 export default {
   color,
   font,

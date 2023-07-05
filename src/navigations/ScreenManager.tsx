@@ -109,7 +109,12 @@ export default function ScreenManager () {
   }
 
   return (
-    <NavigationContainer ref={(ref) => (NavigationService.navigator = ref)}>
+    <NavigationContainer
+      ref={(ref) => (NavigationService.navigator = ref)}
+      onStateChange={(props) => {
+        console.log('[Navigation Change]', props);
+      }}
+    >
       <Stack.Navigator
         screenOptions={{ headerShown: false }}
         initialRouteName={ScreenID.SPLASH as never}

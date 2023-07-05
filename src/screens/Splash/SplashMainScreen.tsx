@@ -15,9 +15,9 @@ import { helpers, i18n } from 'common';
 export default function SplashMainScreen (studentMol: StudentModule) {
   function mapStateToProps (state: State) {
     return {
-      studentId: studentMol.selectors.profile(state)?.id || undefined,
-      loading: studentMol.selectors.loading(state),
-      error: studentMol.selectors.error(state),
+      studentId: studentMol.selectors.profileData(state)?.id || undefined,
+      loading: studentMol.selectors.profileLoading(state),
+      error: studentMol.selectors.profileError(state),
     }
   }
   function mapDispatchToProps (dispatch: Dispatch) {

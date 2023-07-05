@@ -6,6 +6,7 @@ import {
   GestureResponderEvent,
   ActivityIndicator,
   ViewStyle,
+  View,
 } from 'react-native';
 import theme, {
   ButtonSizeType,
@@ -75,18 +76,20 @@ export default function EZGButton({
       onPressOut={onPressOut}
       onPressIn={onPressIn}
       disabled={disabled || loading || lazyTrigger}>
-      {title && (
-        <Text style={
-          disabled ? combineStyle.titleInactive : combineStyle.title
-        }>{title}</Text>
-      )}
-      {loading && (
-        <ActivityIndicator
-          style={styles.loading}
-          color={combineStyle.loadingColor}
-          size="small"
-        />
-      )}
+      <View style={styles.title}>
+        {title && (
+          <Text style={
+            disabled ? combineStyle.titleInactive : combineStyle.title
+          }>{title}</Text>
+        )}
+        {loading && (
+          <ActivityIndicator
+            style={styles.loading}
+            color={combineStyle.loadingColor}
+            size="small"
+          />
+        )}
+      </View>
     </TouchableOpacity>
   );
 }
@@ -105,9 +108,9 @@ const styles = StyleSheet.create({
     backgroundColor: theme.color.primaryWine,
   },
   icon: { marginHorizontal: theme.margin.normal },
+  title: { flexDirection: 'row' },
   loading: {
     position: 'absolute',
-    right: theme.margin.normal,
-    top: theme.padding.medium,
+    right: -((theme.padding.normal as number) * 4),
   },
 });

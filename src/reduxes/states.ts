@@ -7,3 +7,7 @@ export type State = {
   lessons: any;
   resources: any;
 };
+
+export function assignChange<T>(state: T, change: T) {
+  return Object.assign({}, state, change);
+}
