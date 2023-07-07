@@ -1,4 +1,13 @@
-import { View, StyleSheet, Text, Image, ScrollView, KeyboardAvoidingViewProps, KeyboardAvoidingView, TouchableOpacity } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Text,
+  Image,
+  ScrollView,
+  KeyboardAvoidingViewProps,
+  KeyboardAvoidingView,
+  TouchableOpacity,
+} from "react-native";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { State } from "reduxes/states";
@@ -28,9 +37,10 @@ export default function LoginMainScreen(studentMol: StudentModule) {
   return connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
 }
 
-function validateForm (email, password) {
-  const errEmail = helpers.validateEmail(email);
-  if (errEmail) return errEmail;
+function validateForm (username, password) {
+  const errUsername = !username || username.trim() === ''
+    ? i18n.ERROR_EMPTY_FIELD : null;
+  if (errUsername) return errUsername;
   const errPassword = !password || password.trim() === ''
     ? i18n.ERROR_EMPTY_FIELD : null;
   if (errPassword) return errPassword;
@@ -50,16 +60,16 @@ function LoginScreen ({
   error,
   logIn,
 }: LoginScreenProps) {
-  const [email, setEmail] = useState<string>(null);
+  const [username, setUsername] = useState<string>(null);
   const [password, setPassword] = useState<string>(null);
 
   const onFormChange = (name: string) => useCallback((text: string) => {
     switch(name) {
-      case 'email': return setEmail(text);
+      case 'username': return setUsername(text);
       case 'password': return setPassword(text);
       default: return;
     }
-  }, [setEmail, setPassword]);
+  }, [setUsername, setPassword]);
 
   const keyboardProps: KeyboardAvoidingViewProps = helpers.selectDevice({
     iPhone: {
@@ -72,11 +82,11 @@ function LoginScreen ({
   });
 
   const onSubmit = useCallback(() => {
-    console.log('Submmitted:', { email, password });
-    const err = validateForm(email, password);
+    console.log('Submmitted:', { username, password });
+    const err = validateForm(username, password);
     if (err) return;
-    logIn({ email, password });
-  }, [email, password, logIn]); // logIn
+    logIn({ user_name: username, password });
+  }, [username, password, logIn]); // logIn
 
   useEffect(() => {
     if (loading) return;
@@ -104,13 +114,8 @@ function LoginScreen ({
                   placeHolder={i18n.USER_NAME_HINT}
                   required={[
                     {type: 'required', message: i18n.ERROR_EMPTY_FIELD},
-                    {
-                      type: 'validation',
-                      message: i18n.ERROR_REGEX,
-                      validation: (t: string) => !helpers.validateEmail(t),
-                    }
                   ]}
-                  onChange={onFormChange('email')}
+                  onChange={onFormChange('username')}
                   showError
                 />
               </View>

@@ -23,6 +23,14 @@ export default {
         return null;
       })
   },
+  clearAccessToken: (): Promise<boolean> => {
+    return AsyncStorage.removeItem(ACCESS_TOKEN)
+      .then(() => true)
+      .catch(err => {
+        console.error(err);
+        return false;
+      });
+  },
   clearAll: (): Promise<boolean> => {
     return AsyncStorage.clear().then(() => true).catch(() => false);
   }

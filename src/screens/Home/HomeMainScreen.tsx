@@ -11,8 +11,8 @@ import { useEffect } from "react";
 export default function HomeMainScreen(studentMol: StudentModule) {
   function mapStateToProps (state: State) {
     return {
-      profile: studentMol.selectors.profile(state),
-      loading: studentMol.selectors.loading(state),
+      profile: studentMol.selectors.profileData(state),
+      loading: studentMol.selectors.profileLoading(state),
     };
   }
 

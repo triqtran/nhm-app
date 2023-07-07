@@ -24,7 +24,7 @@ export type StudentType = {
 }
 
 export type LogInReq = {
-  email: string;
+  user_name: string;
   password: string;
 }
 
@@ -48,8 +48,13 @@ export type GetProfileRes = {
   data: StudentType;
 }
 
+export type LogOutRes = {
+  success: boolean;
+}
+
 export default interface IStudentAPI {
   logIn: (req: LogInReq) => Promise<ApiResponse<LogInRes>>;
   signUp: (req: SignUpReq) => Promise<ApiResponse<LogInRes>>;
   getProfile: () => Promise<ApiResponse<GetProfileRes>>;
+  logOut: () => Promise<ApiResponse<LogOutRes>>;
 }

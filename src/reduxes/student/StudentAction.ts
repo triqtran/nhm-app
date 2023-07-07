@@ -12,3 +12,7 @@ export const signUpFailed: Action<string | null> = new Action('signUpFailed');
 export const getProfile: Action<void> = new Action('getProfile');
 export const getProfileSuccess: Action<StudentType> = new Action('getProfileSuccess');
 export const getProfileFailed: Action<string | null> = new Action('getProfileFailed');
+
+export const logOut: Action<void> = new Action('logOut');
+export const logOutSuccess: Action<void> = new Action('logOutSuccess');
+export const logOutFailed: Action<void> = new Action('logOutFailed');

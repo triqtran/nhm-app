@@ -403,6 +403,10 @@ export type InputRequiredType = {
 }
 export type InputFormattedType = 'text' | 'number' | 'phone' | 'date' | 'currency' | 'password';
 
+export type NHMIconName =
+  'home'
+  | 'gallery';
+
 export default {
   color,
   font,
