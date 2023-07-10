@@ -2,7 +2,10 @@ import {
   NavigationState,
   StackActions,
   CommonActions,
+  createNavigationContainerRef,
+  NavigationContainerRefWithCurrent,
 } from '@react-navigation/native';
+import { RootStackParamList } from './params';
 
 function getActiveRouteName(state: NavigationState): string {
   const route = state.routes[state.index];
@@ -16,9 +19,16 @@ function getActiveRouteName(state: NavigationState): string {
 }
 
 class NavigationService {
-  navigator: any = null;
+  navigator: NavigationContainerRefWithCurrent<RootStackParamList> = null;
   currentRouterName: string = '';
   previousRouteName: string = '';
+
+  constructor() {
+    this.navigator = createNavigationContainerRef<
+      RootStackParamList
+    >();
+    console.log('Initialize navigation:', this.navigator);
+  }
 
   isLightStatus (screens: Array<string> = []) {
     if (!screens?.length) return false;

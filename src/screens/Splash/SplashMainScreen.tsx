@@ -15,7 +15,7 @@ import { helpers, i18n } from 'common';
 export default function SplashMainScreen (studentMol: StudentModule) {
   function mapStateToProps (state: State) {
     return {
-      studentId: studentMol.selectors.profileData(state)?.id || undefined,
+      studentId: studentMol.selectors.profileData(state)?.id,
       loading: studentMol.selectors.profileLoading(state),
       error: studentMol.selectors.profileError(state),
     }
@@ -29,7 +29,7 @@ export default function SplashMainScreen (studentMol: StudentModule) {
 }
 
 type SplashScreenProps = {
-  studentId: number | undefined;
+  studentId?: number;
   loading: boolean;
   error?: string | null | undefined;
   getProfile: () => void;
@@ -44,7 +44,8 @@ function SplashScreen ({
 
   useEffect(() => {
     if (loading) return; // || error
-    const destScreen = studentId ? ScreenID.MAIN : ScreenID.WELCOME;
+    const destScreen = (studentId && !isNaN(studentId))
+      ? ScreenID.MAIN : ScreenID.WELCOME;
     return NavigationService.pushToScreen(destScreen);
   }, [studentId, error, loading]);
 

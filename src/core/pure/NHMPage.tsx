@@ -15,6 +15,7 @@ import NHMToast from './NHMToast';
 
 type NHMPageProps = {
   onRefresh?: () => void;
+  noFirstRefresh?: boolean;
   refresh?: boolean;
   noScroll?: boolean;
   error?: string;
@@ -23,6 +24,7 @@ type NHMPageProps = {
 
 export default function NHMPage ({
   onRefresh,
+  noFirstRefresh = false,
   refresh = false,
   noScroll = false,
   error,
@@ -35,6 +37,7 @@ export default function NHMPage ({
   }), []);
 
   useEffect(() => {
+    if (noFirstRefresh) return;
     if (onRefresh) onRefresh();
   }, []);
 

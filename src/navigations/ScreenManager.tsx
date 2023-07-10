@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { Image, StyleSheet, Text, View, ViewStyle } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, NavigationContainerRefWithCurrent } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import NavigationService from './NavigationService';
 import { RootStackParamList } from './params';
@@ -161,7 +161,11 @@ export default function ScreenManager () {
 
   return (
     <NavigationContainer
-      ref={(ref) => (NavigationService.navigator = ref)}
+      ref={
+        (ref: NavigationContainerRefWithCurrent<
+          RootStackParamList
+        >) => (NavigationService.navigator = ref)
+      }
       onStateChange={(props) => {
         console.log('[Navigation Change]', props);
       }}

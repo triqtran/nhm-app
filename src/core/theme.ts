@@ -1,6 +1,7 @@
 import {
   AnimatableNumericValue,
   DimensionValue,
+  Platform,
   TextStyle,
   ViewStyle,
 } from 'react-native';
@@ -343,7 +344,7 @@ function buttonStyles (
   const btnColor = buttonColor(colortype);
 
   const btnView: ViewStyle = {
-    height: buttonSize[size],
+    maxHeight: buttonSize[size],
     borderRadius: radius.extensive,
     flexDirection: 'row',
     alignItems: 'center',
@@ -351,7 +352,7 @@ function buttonStyles (
     borderStyle: 'solid',
     borderWidth: 1,
     borderColor: btnColor.active,
-    minWidth: helpers.selectDevice({
+    maxWidth: helpers.selectDevice({
       iPhone: 280,
       tablet: 452,
     }),
@@ -407,6 +408,19 @@ export type NHMIconName =
   'home'
   | 'gallery';
 
+const boxShadow = Platform.select({
+  ios: {
+    shadowColor: color.additionalGrey70,
+    shadowOffset: {
+      width: 4,
+      height: 6,
+    },
+    shadowOpacity: 0.10,
+    shadowRadius: 3.84,
+  },
+  android: { elevation: 5 },
+})
+
 export default {
   color,
   font,
@@ -416,4 +430,5 @@ export default {
   size,
   buttonSize,
   buttonStyles,
+  boxShadow,
 }

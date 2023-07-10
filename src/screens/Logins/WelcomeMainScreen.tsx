@@ -52,6 +52,8 @@ function WelcomeScreen ({ }: WelcomeScreenProps) {
             title={i18n.LOG_IN_LABEL}
             variant="outlined-transparent"
             onPress={moveToLogIn}
+            hasGradient
+            gradient={theme.color.gradientWine}
           />
         </View>
       </View>
