@@ -1,6 +1,5 @@
 import React, { useCallback, useMemo } from 'react';
 import {
-  Dimensions,
   FlatList,
   ImageSourcePropType,
   ListRenderItem,
@@ -19,10 +18,13 @@ import assets from 'assets';
 import { helpers, i18n } from 'common';
 import NavigationService from 'navigations/NavigationService';
 import ScreenID from 'navigations/ScreenID';
+import { LearningJourney } from 'api/student/request';
+import moment from 'moment';
 
 export default function HomeMainScreen(studentMol: StudentModule) {
   function mapStateToProps (state: State) {
     return {
+      journeys: studentMol.selectors.learningJourney(state),
       loading: studentMol.selectors.profileLoading(state),
     };
   }
@@ -37,6 +39,7 @@ export default function HomeMainScreen(studentMol: StudentModule) {
 }
 
 type HomeScreenProps = {
+  journeys: LearningJourney;
   loading: boolean;
   getProfile: () => void;
 }
@@ -45,6 +48,7 @@ type ThumbItem = {
   image: ImageSourcePropType;
   label: string;
   hint?: string;
+  detail?: React.ReactNode;
   action?: {
     color?: ColorType;
     hasGradient?: boolean;
@@ -55,6 +59,7 @@ type ThumbItem = {
 };
 
 function HomeScreen ({
+  journeys,
   loading,
   getProfile,
 }: HomeScreenProps) {
@@ -64,10 +69,18 @@ function HomeScreen ({
   }, []);
 
   const thumbActions: Array<Array<ThumbItem>> = useMemo(() => {
+    const timeline = journeys?.short_schedule || null;
+    const fmtTime = moment(timeline.time, 'HH:mm:ss').format('HH:mm A');
+    const fmtDate = moment(timeline.date, 'MM/DD/YYYY').format('MMM DD');
+    const scheduleTime = `${fmtTime} ${fmtDate}`;
+    const latestBook = journeys?.latest_book || null;
+    const latestExercise = journeys?.latest_exercise || null;
     return [
       [
         {
-          image: assets.images.imgBooks,
+          image: latestBook?.image
+            ? { uri: latestBook?.image }
+            : assets.images.imgBooks,
           label: i18n.BOOK,
           hint: i18n.BOOK_HINT,
           action: {
@@ -75,18 +88,21 @@ function HomeScreen ({
             hasGradient: true,
             gradient: theme.color.gradientWine,
             onPress: () => exploreScreen(ScreenID.RESOURCE),
-            title: i18n.CONTINUE,
-          }
+            title: latestBook?.title ? i18n.CONTINUE : i18n.EXPLORE,
+          },
+          detail: latestBook?.title
+            ? (
+              <View style={styles.vertical}>
+                <Text style={styles.title}>
+                  {latestBook?.title}
+                </Text>
+              </View>
+            ) : null,
         },
         {
-          image: assets.images.imgCalendar,
-          label: i18n.UPCOMING_CLASSES,
-          hint: i18n.UPCOMING_CLASSES_HINT,
-        },
-      ],
-      [
-        {
-          image: assets.images.imgRubik,
+          image: latestExercise?.image
+            ? { uri: latestExercise?.image }
+            : assets.images.imgRubik,
           label: i18n.GAME,
           hint: i18n.GAME_HINT,
           action: {
@@ -94,18 +110,40 @@ function HomeScreen ({
             hasGradient: true,
             gradient: theme.color.gradientWine,
             onPress: () => exploreScreen(ScreenID.RESOURCE),
-            title: i18n.PLAY,
-          }
+            title: latestExercise?.title ? i18n.CONTINUE : i18n.PLAY,
+          },
+          detail: latestExercise?.title ? (
+            <View style={styles.vertical}>
+              <Text style={styles.title}>
+                {latestExercise?.title}
+              </Text>
+              <Text style={styles.title}>
+                {`${i18n.LEVEL} ${latestExercise?.current_level}/${latestExercise?.total_levels}`}
+              </Text>
+            </View>
+          ) : null,
         },
+      ],
+      [
         {
-          image: assets.images.imgDocuments,
-          label: i18n.NOTES,
-          hint: i18n.NOTES_HINT,
-          action: {
-            color: 'honey',
-            onPress: () => {},
-            title: i18n.ADD_NOTE,
-          }
+          image: assets.images.imgCalendar,
+          label: i18n.UPCOMING_CLASSES,
+          hint: i18n.UPCOMING_CLASSES_HINT,
+          detail: timeline
+            ? (
+              <View style={styles.vertical}>
+                <Text style={styles.title}>{timeline?.course_title}</Text>
+                <Text style={styles.title}>{scheduleTime}</Text>
+              </View>
+            ) : null,
+          action: timeline
+            ? {
+              color: 'wine',
+              hasGradient: true,
+              gradient: theme.color.gradientWine,
+              onPress: () => exploreScreen(ScreenID.RESOURCE),
+              title: i18n.DETAIL,
+            } : null,
         },
       ]
     ];
@@ -121,7 +159,7 @@ function HomeScreen ({
             <NHMThumbnail
               thumbImg={left.image}
               label={left.label}
-              extra={(
+              extra={left?.detail || (
                 <Text style={styles.hint}>
                   {left.hint}
                 </Text>
@@ -141,7 +179,7 @@ function HomeScreen ({
             <NHMThumbnail
               thumbImg={right.image}
               label={right.label}
-              extra={(
+              extra={right?.detail || (
                 <Text style={styles.hint}>
                   {right.hint}
                 </Text>
@@ -184,7 +222,7 @@ function HomeScreen ({
       </View>
     </NHMPage>
   );
-}
+};
 
 const styles = StyleSheet.create({
   view: {
@@ -223,5 +261,15 @@ const styles = StyleSheet.create({
       iPhone: 64,
       tablet: 120,
     }),
+  },
+  title: {
+    ...theme.font.medium,
+    color: theme.color.additionalGrey,
+    textAlign: 'center',
+    paddingVertical: theme.padding.normal,
+  },
+  vertical: {
+    flexDirection: 'column',
+    alignItems: 'center',
   }
-})
+});

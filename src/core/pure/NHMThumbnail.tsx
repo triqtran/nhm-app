@@ -92,6 +92,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: IMAGE_SIZE,
     height: IMAGE_SIZE,
+    borderRadius: theme.radius.normal,
     left: imgHorizontal,
     right: imgHorizontal,
     top: -(IMAGE_SIZE / 2),

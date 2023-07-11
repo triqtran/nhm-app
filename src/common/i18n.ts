@@ -38,4 +38,7 @@ export default {
   GAME: 'Game',
   GAME_HINT: 'Let\’s play a game',
   PLAY: 'Play',
+  EXPLORE: 'Explore',
+  DETAIL: 'Detail',
+  LEVEL: 'Level',
 }

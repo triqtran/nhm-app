@@ -94,6 +94,7 @@ export const selectors = {
   logInReqError: (state: State) => state.student?.logInReq?.error,
   signUpReqLoading: (state: State) => state.student?.signUpReq?.loading,
   signUpReqError: (state: State) => state.student?.signUpReq?.error,
+  learningJourney: (state: State) => state.student?.profile?.data?.learning_journey || null,
 }
 
 export default studentReducer;

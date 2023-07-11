@@ -8,6 +8,26 @@ export const STUDENT_STATUS: { [k in StudentStatusType]: StudentStatusType } = {
   suspended: 'suspended',
 }
 
+export type LearningJourney = {
+  latest_book?: {
+    id?: number;
+    title?: string;
+    image?: string;
+  };
+  latest_exercise?: {
+    id?: number;
+    title?: string;
+    image?: string;
+    current_level?: number;
+    total_levels?: number;
+  };
+  short_schedule?: {
+    course_title?: string;
+    date?: string; // format: DD/MM/YYYY
+    time?: string; // format: HH:mm GMT+7
+  }
+};
+
 export type StudentType = {
   id?: number;
   first_name: string;
@@ -21,6 +41,7 @@ export type StudentType = {
   ayotree_campus_id?: number;
   created_at: Date;
   updated_at?: Date;
+  learning_journey?: LearningJourney;
 }
 
 export type LogInReq = {
