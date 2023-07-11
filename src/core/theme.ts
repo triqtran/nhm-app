@@ -343,8 +343,10 @@ function buttonStyles (
 ): ButtonStyleType {
   const btnColor = buttonColor(colortype);
 
+  // const fieldHeight = hasGradient ? 'maxHeight' : 'minHeight';
+  // const fieldWidth = hasGradient ? 'maxWidth' : 'minWidth';
+
   const btnView: ViewStyle = {
-    maxHeight: buttonSize[size],
     borderRadius: radius.extensive,
     flexDirection: 'row',
     alignItems: 'center',
@@ -352,10 +354,8 @@ function buttonStyles (
     borderStyle: 'solid',
     borderWidth: 1,
     borderColor: btnColor.active,
-    maxWidth: helpers.selectDevice({
-      iPhone: 280,
-      tablet: 452,
-    }),
+    height: buttonSize[size],
+    maxWidth: helpers.selectDevice({ iPhone: 280, tablet: 452 }),
   };
   const stext: TextStyle = (() => {
     switch(size) {

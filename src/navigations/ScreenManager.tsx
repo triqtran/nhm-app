@@ -7,7 +7,7 @@ import { RootStackParamList } from './params';
 import ScreenID from './ScreenID';
 import AppManager from '../AppManager';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { i18n } from 'common';
+import { helpers, i18n } from 'common';
 import theme, { ColorType } from 'core/theme';
 import { NHMIcon } from 'core';
 import assets from 'assets';
@@ -193,7 +193,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   tabbarView: {
-    height: 80,
+    height: helpers.selectDevice({
+      iPhone: 80,
+      tablet: 100,
+    }),
   },
   tabbarItem: {
     flex: 1,
@@ -204,7 +207,10 @@ const styles = StyleSheet.create({
     ...theme.font.normal,
     color: theme.color.secondaryBrown30,
     position: 'relative',
-    top: theme.padding.medium,
+    top: helpers.selectDevice({
+      iPhone: theme.padding.medium,
+      tablet: 0
+    }),
   },
   bold: {
     fontWeight: '600',

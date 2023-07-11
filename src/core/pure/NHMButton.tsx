@@ -38,7 +38,7 @@ function GradientBody ({
       </LinearGradient>
     );
   }
-  return children;
+  return <View style={styles.gradient}>{children}</View>;
 }
 
 export type EZGButtonProps = {
@@ -149,7 +149,8 @@ const styles = StyleSheet.create({
     right: -((theme.padding.normal as number) * 4),
   },
   gradient: {
-    flex: 1,
+    width: '100%',
+    height: '100%',
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: theme.padding.medium,

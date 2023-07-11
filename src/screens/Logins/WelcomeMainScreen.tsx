@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Dimensions, Image, StyleSheet, Text, View } from 'react-native';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { NHMButton, NHMPage } from 'core';
@@ -45,6 +45,8 @@ function WelcomeScreen ({ }: WelcomeScreenProps) {
           <NHMButton
             title={i18n.SIGN_UP_LABEL}
             onPress={moveToSignUp}
+            hasGradient
+            gradient={theme.color.gradientWine}
           />
         </View>
         <View style={styles.padding}>
@@ -52,8 +54,6 @@ function WelcomeScreen ({ }: WelcomeScreenProps) {
             title={i18n.LOG_IN_LABEL}
             variant="outlined-transparent"
             onPress={moveToLogIn}
-            hasGradient
-            gradient={theme.color.gradientWine}
           />
         </View>
       </View>
@@ -67,10 +67,12 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: helpers.selectDevice({
+    alignSelf: 'center',
+    marginVertical: helpers.selectDevice({
       iPhone: 100,
       tablet: 200,
     }),
+    width: helpers.selectDevice({ iPhone: 322, tablet: 452 })
   },
   image: {
     width: helpers.selectDevice({

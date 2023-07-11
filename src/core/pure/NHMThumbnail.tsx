@@ -98,7 +98,10 @@ const styles = StyleSheet.create({
   },
   body: {
     flex: 1,
-    paddingTop: (theme.padding.extensive as number) * 1.5,
+    paddingTop: (
+      (theme.padding.extensive as number)
+      * helpers.selectDevice({ iPhone: 1.5, tablet: 3 })
+    ),
     flexDirection: 'column',
     alignItems: 'center',
   },
