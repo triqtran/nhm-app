@@ -28,13 +28,11 @@ export default function HomeMainScreen(studentMol: StudentModule) {
       loading: studentMol.selectors.profileLoading(state),
     };
   }
-
   function mapDispatchToProps (dispatch: Dispatch) {
     return {
       getProfile: studentMol.actions.getProfile.bindCreator(dispatch),
     };
   }
-
   return connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
 }
 

@@ -1,31 +1,33 @@
 import React, { useMemo } from 'react';
 import { Svg } from 'react-native-svg';
-import theme, { ColorType, SizeType } from 'core/theme';
+import theme, { ColorType, IconSizeType } from 'core/theme';
 
 export type IconProps = {
-  size?: number;
+  size?: IconSizeType;
   fill?: string;
   stroke?: string;
 };
 
 export type BaseIconProps = {
-  size: SizeType;
-  variant?: 'outlined' | 'contained';
+  size: IconSizeType;
   color: ColorType;
   Element?: React.ElementType;
-  disabled?: boolean;
+  targetFill?: string;
+  targetStroke?: string;
 };
 
 export default function BaseIcon({
   size = 'normal',
-  variant = 'contained',
   color = 'wine',
-  disabled = false,
   Element,
+  targetFill = null,
+  targetStroke = null,
 }: BaseIconProps) {
   if (!Element) return null;
 
-  const [active, inactive] = useMemo(() => {
+  // fill: is the main of the color
+  // stroke: is the sub-color
+  const [fill, stroke] = useMemo(() => {
     switch (color) {
       case 'wine': return [theme.color.primaryWine, theme.color.primaryWine30];
       case 'olive': return [theme.color.additionalOlive, theme.color.additionalOlive30];
@@ -43,14 +45,13 @@ export default function BaseIcon({
   const sz = useMemo(() => {
     switch(size) {
       case 'normal': return 32;
-      case 'large': return 48;
+      case 'medium': return 36;
+      case 'large': return 40;
+      case 'over': return 48;
+      case 'extensive': return 64;
       default: return 32;
     }
   }, [size]);
-  const elementProps =
-    variant === 'contained'
-      ? { fill: disabled ? inactive : active }
-      : { stroke: disabled ? inactive : active };
 
   return (
     <Svg
@@ -58,7 +59,11 @@ export default function BaseIcon({
       height={sz}
       viewBox={`0 0 ${sz} ${sz}`}
       fill="none">
-      <Element size={sz} {...elementProps} />
+      <Element
+        size={size}
+        fill={targetFill || fill}
+        stroke={targetStroke || stroke}
+      />
     </Svg>
   );
 }

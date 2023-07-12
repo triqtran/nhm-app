@@ -4,11 +4,7 @@ import theme from 'core/theme';
 import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 
-type HomeHeaderProps = {};
-
-export default function HomeHeader ({
-
-}: HomeHeaderProps) {
+export default function HomeHeader () {
   return (
     <View style={styles.header}>
       <View style={styles.body}>

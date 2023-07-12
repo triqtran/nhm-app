@@ -59,6 +59,12 @@ export type SizeType =
   | 'over'
   | 'extensive';
 
+export type IconSizeType =
+  'normal'
+  | 'medium'
+  | 'large'
+  | 'over'
+  | 'extensive';
 
 export const radius: { [k in SizeType]: AnimatableNumericValue } = {
   normal: helpers.selectDevice({ iPhone: 12, tablet: 14 }),
@@ -405,8 +411,27 @@ export type InputRequiredType = {
 export type InputFormattedType = 'text' | 'number' | 'phone' | 'date' | 'currency' | 'password';
 
 export type NHMIconName =
-  'home'
-  | 'gallery';
+  'arrow-down'
+  | 'arrow-left'
+  | 'arrow-right'
+  | 'arrow-up'
+  | 'calendar'
+  | 'close'
+  | 'eyes-hidden'
+  | 'eyes'
+  | 'gallery'
+  | 'home'
+  | 'leading-left'
+  | 'lock'
+  | 'paper'
+  | 'play'
+  | 'profile'
+  | 'star-filled'
+  | 'star'
+  | 'tick'
+  | 'timetable'
+  | 'volume'
+  | 'wrong';
 
 const boxShadow = Platform.select({
   ios: {
