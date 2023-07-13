@@ -17,6 +17,7 @@ function Element ({ size, fill }: IconProps) {
     <Path
       d={data}
       fill={fill}
+      stroke="#FFFFFF"
       fill-rule="evenodd"
       clip-rule="evenodd"
     />

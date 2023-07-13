@@ -44,7 +44,6 @@ export default function BaseIcon({
 
   const sz = useMemo(() => {
     switch(size) {
-      case 'normal': return 32;
       case 'medium': return 36;
       case 'large': return 40;
       case 'over': return 48;

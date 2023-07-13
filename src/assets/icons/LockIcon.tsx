@@ -13,7 +13,14 @@ const svgInfor: { [k in IconSizeType]: string } = {
 
 function Element ({ size, fill }: IconProps) {
   const data = svgInfor[size];
-  return <Path d={data} fill={fill} />;
+  return (
+    <Path
+      d={data}
+      fill={fill}
+      clipRule="evenodd"
+      fillRule="evenodd"
+    />
+  );
 }
 
 export default function LockIcon(props: BaseIconProps) {
