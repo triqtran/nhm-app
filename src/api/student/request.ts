@@ -73,9 +73,26 @@ export type LogOutRes = {
   success: boolean;
 }
 
+export type ForgotPasswordReq = {
+  email: string;
+}
+
+export type ChangePasswordRes = {
+  success: boolean;
+  data: string;
+}
+
+export type ResetPasswordReq = {
+  email: string;
+  confirm_code: string;
+  password: string;
+}
+
 export default interface IStudentAPI {
   logIn: (req: LogInReq) => Promise<ApiResponse<LogInRes>>;
   signUp: (req: SignUpReq) => Promise<ApiResponse<LogInRes>>;
   getProfile: () => Promise<ApiResponse<GetProfileRes>>;
   logOut: () => Promise<ApiResponse<LogOutRes>>;
+  forgotPassword: (req: ForgotPasswordReq) => Promise<ApiResponse<ChangePasswordRes>>;
+  resetPassword: (req: ResetPasswordReq) => Promise<ApiResponse<ChangePasswordRes>>;
 }

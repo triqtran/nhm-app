@@ -1,3 +1,4 @@
+import { ResourcesState } from "./resources/ResourcesReducer";
 import { StudentState } from "./student/StudentReducer";
 
 export type State = {
@@ -5,7 +6,7 @@ export type State = {
   schedule: any;
   courses: any;
   lessons: any;
-  resources: any;
+  resources: ResourcesState;
 };
 
 export function assignChange<T>(state: T, change: T) {

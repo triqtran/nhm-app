@@ -9,6 +9,8 @@ const $$initial = _Symbol('initial');
 /**
  * Flow type for [Flux Standard Action]{@link https://github.com/acdlite/flux-standard-action}.
  */
+export type ErrorActionCall = string | null | undefined;
+
 export type ActionData<PayloadT> = {
   type: string;
   payload: PayloadT;

@@ -17,13 +17,23 @@ export type StudentState = {
   signUpReq?: {
     loading?: boolean;
     error?: string;
-  }
+  };
+  forgotReq?: {
+    loading?: boolean;
+    error?: string;
+  };
+  resetReq?: {
+    loading?: boolean;
+    error?: string;
+  };
 }
 
 const initState: StudentState = {
   profile: { data: null, error: null, loading: false },
   logInReq: { loading: false, error: null },
   signUpReq: { loading: false, error: null },
+  forgotReq: { loading: false, error: null },
+  resetReq: { loading: false, error: null },
 };
 
 const studentReducer = Action.createReducer(
@@ -84,6 +94,42 @@ const studentReducer = Action.createReducer(
       profile: { loading: false, error: null },
     });
   }),
+
+  StudentActions.forgotPassword.on((state: StudentState) => {
+    return assignChange(state, {
+      forgotReq: { loading: true },
+    });
+  }),
+
+  StudentActions.forgotPasswordSuccess.on((state: StudentState) => {
+    return assignChange(state, {
+      forgotReq: { loading: false },
+    });
+  }),
+
+  StudentActions.forgotPasswordFailed.on((state: StudentState) => {
+    return assignChange(state, {
+      forgotReq: { loading: false, error: i18n.NETWORK_ERROR },
+    });
+  }),
+
+  StudentActions.resetPassword.on((state: StudentState) => {
+    return assignChange(state, {
+      resetReq: { loading: true },
+    });
+  }),
+
+  StudentActions.resetPasswordSuccess.on((state: StudentState) => {
+    return assignChange(state, {
+      resetReq: { loading: false },
+    });
+  }),
+
+  StudentActions.resetPasswordFailed.on((state: StudentState) => {
+    return assignChange(state, {
+      resetReq: { loading: false, error: i18n.NETWORK_ERROR },
+    });
+  }),
 );
 
 export const selectors = {
@@ -95,6 +141,10 @@ export const selectors = {
   signUpReqLoading: (state: State) => state.student?.signUpReq?.loading,
   signUpReqError: (state: State) => state.student?.signUpReq?.error,
   learningJourney: (state: State) => state.student?.profile?.data?.learning_journey || null,
+  forgotReqLoading: (state: State) => state.student?.forgotReq?.loading,
+  forgotReqError: (state: State) => state.student?.forgotReq?.error,
+  resetReqLoading: (state: State) => state.student?.resetReq?.loading,
+  resetReqError: (state: State) => state.student?.resetReq?.error,
 }
 
 export default studentReducer;

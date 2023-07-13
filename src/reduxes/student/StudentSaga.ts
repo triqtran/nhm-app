@@ -1,11 +1,11 @@
 import { call, put } from "@redux-saga/core/effects";
 import api from "api";
 import { ApiResponse } from "api/caller";
-import { GetProfileRes, LogInReq, LogInRes, LogOutRes, SignUpReq } from "api/student/request";
+import { ChangePasswordRes, ForgotPasswordReq, GetProfileRes, LogInReq, LogInRes, LogOutRes, ResetPasswordReq, SignUpReq } from "api/student/request";
 import { i18n, storage } from "common";
 import NavigationService from "navigations/NavigationService";
 import ScreenID from "navigations/ScreenID";
-import { ActionData } from "reduxes/Action";
+import Action, { ActionData } from "reduxes/Action";
 import * as StudentAction from './StudentAction';
 
 export function* signUpSaga (payload: ActionData<SignUpReq>) {
@@ -60,6 +60,34 @@ export function* logOutSaga () {
     yield call(storage.clearAccessToken);
     yield put(StudentAction.logOutSuccess.create());
     NavigationService.pushToScreen(ScreenID.WELCOME);
+  } catch (err) {
+    console.log(err);
+    yield put(StudentAction.logOutFailed.create());
+  }
+}
+
+export function* forgotPasswordSaga (payload: ActionData<ForgotPasswordReq>) {
+  try {
+    const resp: ApiResponse<ChangePasswordRes> =
+      yield call(api.student.forgotPassword, payload.payload);
+    if (resp?.status !== 200 || !resp?.data?.success) {
+      throw new Error (i18n.NETWORK_ERROR);
+    }
+    NavigationService.pushToScreen(ScreenID.SENTEMAIL);
+  } catch (err) {
+    console.log(err);
+    yield put(StudentAction.logOutFailed.create());
+  }
+}
+
+export function* resetPasswordSaga (payload: ActionData<ResetPasswordReq>) {
+  try {
+    const resp: ApiResponse<ChangePasswordRes> =
+      yield call(api.student.resetPassword, payload.payload);
+    if (resp?.status !== 200 || !resp?.data?.success) {
+      throw new Error (i18n.NETWORK_ERROR);
+    }
+    NavigationService.pushToScreen(ScreenID.LOGIN);
   } catch (err) {
     console.log(err);
     yield put(StudentAction.logOutFailed.create());

@@ -24,6 +24,16 @@ export default function studentModule(runner: Runner) {
       StudentAction.getProfile.type,
       StudentSaga.getProfileSaga,
     );
+
+    yield takeLatest(
+      StudentAction.forgotPassword.type,
+      StudentSaga.forgotPasswordSaga,
+    );
+
+    yield takeLatest(
+      StudentAction.resetPassword.type,
+      StudentSaga.resetPasswordSaga,
+    );
   });
 
   return {

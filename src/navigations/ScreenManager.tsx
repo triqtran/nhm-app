@@ -93,6 +93,18 @@ export default function ScreenManager () {
       name: ScreenID.WELCOME as never,
       component: AppManager.presentations[ScreenID.WELCOME],
     },
+    FORGOT: {
+      name: ScreenID.FORGOT as never,
+      component: AppManager.presentations[ScreenID.FORGOT],
+    },
+    RESET: {
+      name: ScreenID.RESET as never,
+      component: AppManager.presentations[ScreenID.RESET],
+    },
+    SENTEMAIL: {
+      name: ScreenID.SENTEMAIL as never,
+      component: AppManager.presentations[ScreenID.SENTEMAIL],
+    },
   }), []);
 
   function BottomTabStack () {
@@ -181,6 +193,9 @@ export default function ScreenManager () {
         <Stack.Screen name={ScreenID.MAIN as never} component={BottomTabStack} />
         <Stack.Screen {...routeName.SCHEDULE} />
         <Stack.Screen {...routeName.COURSE} />
+        <Stack.Screen {...routeName.FORGOT} />
+        <Stack.Screen {...routeName.RESET} />
+        <Stack.Screen {...routeName.SENTEMAIL} />
       </Stack.Navigator>
     </NavigationContainer>
   )
