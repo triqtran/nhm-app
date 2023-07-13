@@ -36,7 +36,7 @@ export default function BaseIcon({
       case 'grey': return [theme.color.additionalGrey, theme.color.additionalGrey50];
       case 'light': return [theme.color.additionalLight, theme.color.additionalGrey30];
       case 'red': return [theme.color.systemError, theme.color.primaryWine30];
-      case 'blue': return [theme.color.systemAction, theme.color.additionalGrey50];
+      case 'blue': return [theme.color.systemAction, theme.color.systemAction10];
       case 'green': return [theme.color.systemSuccess, theme.color.additionalOlive30];
       default: return [theme.color.primaryWine, theme.color.primaryWine30];
     }

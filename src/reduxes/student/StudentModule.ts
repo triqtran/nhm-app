@@ -34,6 +34,11 @@ export default function studentModule(runner: Runner) {
       StudentAction.resetPassword.type,
       StudentSaga.resetPasswordSaga,
     );
+
+    yield takeLatest(
+      StudentAction.logOut.type,
+      StudentSaga.logOutSaga,
+    );
   });
 
   return {

@@ -1,8 +1,10 @@
 import { StudentType } from 'api/student/request'
 import { i18n } from 'common';
-import Action from 'reduxes/Action';
+import Action, { ErrorActionCall } from 'reduxes/Action';
 import { State, assignChange } from 'reduxes/states';
 import * as StudentActions from './StudentAction';
+
+type RetuningData = { loading?: boolean; error?: ErrorActionCall };
 
 export type StudentState = {
   profile?: {
@@ -10,22 +12,11 @@ export type StudentState = {
     error?: string;
     loading?: boolean;
   };
-  logInReq?: {
-    loading?: boolean;
-    error?: string;
-  };
-  signUpReq?: {
-    loading?: boolean;
-    error?: string;
-  };
-  forgotReq?: {
-    loading?: boolean;
-    error?: string;
-  };
-  resetReq?: {
-    loading?: boolean;
-    error?: string;
-  };
+  logInReq?: RetuningData;
+  signUpReq?: RetuningData;
+  forgotReq?: RetuningData;
+  resetReq?: RetuningData;
+  logOut?: RetuningData;
 }
 
 const initState: StudentState = {
@@ -130,6 +121,24 @@ const studentReducer = Action.createReducer(
       resetReq: { loading: false, error: i18n.NETWORK_ERROR },
     });
   }),
+
+  StudentActions.logOut.on((state: StudentState) => {
+    return assignChange(state, {
+      logOut: { loading: true }
+    });
+  }),
+
+  StudentActions.logOutSuccess.on((state: StudentState) => {
+    return assignChange(state, {
+      logOut: { loading: false }
+    });
+  }),
+
+  StudentActions.logOutFailed.on((state: StudentState) => {
+    return assignChange(state, {
+      logOut: { loading: false, error: i18n.NETWORK_ERROR }
+    });
+  }),
 );
 
 export const selectors = {
@@ -145,6 +154,8 @@ export const selectors = {
   forgotReqError: (state: State) => state.student?.forgotReq?.error,
   resetReqLoading: (state: State) => state.student?.resetReq?.loading,
   resetReqError: (state: State) => state.student?.resetReq?.error,
+  logoutLoading: (state: State) => state.student?.logOut?.loading,
+  logoutError: (state: State) => state.student?.logOut?.error,
 }
 
 export default studentReducer;

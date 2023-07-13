@@ -50,7 +50,7 @@ class AppManager {
     this.presentations[ScreenID.FORGOT] = ForgotPasswordMainScreen(studentMol);
     this.presentations[ScreenID.HOME] = HomeMainScreen(studentMol);
     this.presentations[ScreenID.LOGIN] = LoginMainScreen(studentMol);
-    this.presentations[ScreenID.PROFILE] = ProfileMainScreen();
+    this.presentations[ScreenID.PROFILE] = ProfileMainScreen(studentMol);
     this.presentations[ScreenID.RESET] = ResetPasswordMainScreen(studentMol);
     this.presentations[ScreenID.RESOURCE] = ResourceMainScreen(resourceMol);
     this.presentations[ScreenID.SCHEDULE] = ScheduleMainScreen();

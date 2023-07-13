@@ -36,6 +36,7 @@ const color = {
   systemError: '#F03C15',
   systemSuccess: '#3DCC6D',
   systemAction: '#4399F0',
+  systemAction10: '#C3DEFA',
 };
 
 export type ColorType =

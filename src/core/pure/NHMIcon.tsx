@@ -100,8 +100,8 @@ export default function NHMIcon({
       }
       case 'blue': {
         return name === 'star'
-          ? [theme.color.additionalLight, theme.color.additionalGrey30]
-          : [theme.color.systemAction, theme.color.additionalGrey30];
+          ? [theme.color.additionalLight, theme.color.systemAction10]
+          : [theme.color.systemAction, theme.color.systemAction10];
       }
       case 'green': {
         return name === 'star'

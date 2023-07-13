@@ -41,4 +41,13 @@ export default {
   EXPLORE: 'Explore',
   DETAIL: 'Detail',
   LEVEL: 'Level',
+  YOUR_PROFILE: 'Your Profile',
+  PROFLE_INFO: 'Ayotree account information',
+  CALENDAR_CLASS: 'Calendar/Classes',
+  CLASS_SCHEDULE_INFO: 'Manage classes\’s schedule',
+  AYOTREE_INVOICE: 'Ayotree invoices',
+  INVOICE_INFO: 'Review your Ayotree invoices',
+  UPDATE_PASS: 'Change password',
+  UPDATE_PASS_INFO: 'Update your account password',
+  LOGOUT: 'Log out',
 }
